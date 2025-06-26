@@ -43,10 +43,9 @@ int main(int argc, char* argv[])
     kernelAKF << <1, N >> > (first_signal, d_akf0, N);
     unsigned int* signals = new unsigned int[total_signals];
     int* akf0 = new int[N];
-    cudaMemcpy(akf0, d_akf0, N * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(akf0, d_akf0, N * sizeof(int), cudaMemcpyDeviceToHost);
 
     cudaMemcpy(signals, d_signals, total_signals * sizeof(unsigned int), cudaMemcpyDeviceToHost);
-    cudaMemcpy(akf0, d_akf0, N * sizeof(double), cudaMemcpyDeviceToHost);
     for (int i = 0; i < 5; i++) {
         printf("Signal %d: ", i);
         for (int j = N - 1; j >= 0; j--) {
