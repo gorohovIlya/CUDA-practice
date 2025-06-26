@@ -30,7 +30,7 @@ __global__ void generateSignals(unsigned int* signals, int n) {
 int main(int argc, char* argv[])
 {
     const int N = 10;
-    const unsigned int total_signals = 1 <<  (N - 1);
+    const unsigned int total_signals = 1 << N;
     int* d_akf0;
     unsigned int* d_signals;
     cudaMalloc(&d_signals, total_signals * sizeof(unsigned int));
