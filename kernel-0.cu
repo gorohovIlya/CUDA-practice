@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
     cudaMalloc(&d_signals, total_signals * sizeof(unsigned int));
     cudaMalloc(&d_akf0, N * sizeof(int));
     int blockSize = 256;
-    int gridSize = (total_signals + blockSize - 1) / blockSize;
+    int gridSize = (total_signals + blockSize) / blockSize;
     generateSignals << <gridSize, blockSize >> > (d_signals, N);
     unsigned int first_signal;
     cudaMemcpy(&first_signal, d_signals, sizeof(unsigned int), cudaMemcpyDeviceToHost);
