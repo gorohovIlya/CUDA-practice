@@ -31,13 +31,6 @@ int main() {
     const int N = 31;
     const unsigned int total_signals = 1u << N;
 
-    int device;
-    cudaDeviceProp prop;
-    cudaGetDevice(&device);
-    cudaGetDeviceProperties(&prop, device);
-    printf("Using Device %d: %s (Compute Capability %d.%d)\n",
-        device, prop.name, prop.major, prop.minor);
-
     unsigned int* d_signals;
     int* d_akf;
     cudaMalloc(&d_signals, total_signals * sizeof(unsigned int));
