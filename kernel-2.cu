@@ -36,22 +36,22 @@ __global__ void generateAndFindAKF(size_t* goodSignals, int* sidelobes, int n) {
         }
 
         if (n > 24) {
-            if (max_sidelobe < 3 && (((signal & 0b111) == 0b111) || ((signal >> (n - 3))))) {
+            if (max_sidelobe < 3 && (((signal & 0b111) == 0b111) || ((signal >> (n - 3) == 0b111)))) {
                 goodSignals[blockIdx.x] = signal;
                 sidelobes[blockIdx.x] = max_sidelobe;
-            }
+        }
             else {
-                goodSignals[blockIdx.x] = 0;
-            }
+        goodSignals[blockIdx.x] = 0;
+        }
+    }
+    else {
+        if (max_sidelobe < 2 && (((signal & 0b111) == 0b111) || ((signal >> (n - 3)) == 0b111))) {
+            goodSignals[blockIdx.x] = signal;
+            sidelobes[blockIdx.x] = max_sidelobe;
         }
         else {
-            if (max_sidelobe < 2 && (((signal & 0b111) == 0b111) || ((signal >> (n - 3))))) {
-                goodSignals[blockIdx.x] = signal;
-                sidelobes[blockIdx.x] = max_sidelobe;
-            }
-            else {
-                goodSignals[blockIdx.x] = 0;
-            }
+            goodSignals[blockIdx.x] = 0;
+        }
         }
     }
 }
